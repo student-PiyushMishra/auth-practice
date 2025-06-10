@@ -1,13 +1,18 @@
 import users from "../db/models/user.js"
+import { v4 as uuidv4 } from 'uuid';
+import states from "../states.js"
 
 async function loginUser(req,res){
     const userDetails = req.body
     const user = await users.findOne({...userDetails})
     if(user){
-        res.send("valid user! we are trying to get you logged in")
+        const uid = uuidv4()
+	    res.cookie("uid",uid)	
+        states.set(uid,user._id)
+        return res.send("valid user! we are trying to get you logged in")
     }
     else{
-        res.send(`Bad request! Go <a href="/user/login">back</a>.`)
+        return res.send(`Bad request! Go <a href="/user/login">back</a>.`)
     }
 }
 

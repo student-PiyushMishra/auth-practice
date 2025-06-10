@@ -23,7 +23,6 @@ route.post("/signup",(req,res)=>{
 
 route.post("/login",(req,res)=>{
     loginUser(req=req,res=res)
-    res.redirect('/')
 })
 
 route.get('/signup',(req,res)=>{
